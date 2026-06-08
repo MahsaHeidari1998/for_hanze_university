@@ -1,0 +1,54 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+df = pd.read_csv('delaney-processed.csv')
+
+target = 'measured log solubility in mols per litre'
+features = ['Molecular Weight', 'Number of H-Bond Donors', 'Number of Rings']
+
+print(f"Shape: {df.shape}")
+print("\nColumn names:")
+print(df.columns.tolist())
+
+print(f"\nBasic statistics of {target}:")
+print(df[target].describe())
+
+print("\nCorrelation with solubility:")
+for f in features:
+    corr = df[f].corr(df[target])
+    print(f"{f}: {corr:.3f}")
+
+logS = df[target].values
+mw = df['Molecular Weight'].values
+
+count = 0
+for i in range(len(df)):
+    if mw[i] < 200 and logS[i] > -2:
+        count += 1
+
+print(f"\nCompounds with MW < 200 and LogS > -2: {count}")
+
+plt.figure(figsize=(12,4))
+
+plt.subplot(1,3,1)
+plt.scatter(df['Molecular Weight'], logS, alpha=0.5)
+plt.xlabel('Molecular Weight')
+plt.ylabel('LogS')
+plt.title('MW vs Solubility')
+
+plt.subplot(1,3,2)
+plt.scatter(df['Number of H-Bond Donors'], logS, alpha=0.5)
+plt.xlabel('Number of H-Bond Donors')
+plt.ylabel('LogS')
+plt.title('Donors vs Solubility')
+
+plt.subplot(1,3,3)
+plt.hist(logS, bins=20, edgecolor='black')
+plt.xlabel('LogS')
+plt.ylabel('Frequency')
+plt.title('Distribution of LogS')
+
+plt.tight_layout()
+plt.savefig('solubility_plots.png')
+plt.show()
