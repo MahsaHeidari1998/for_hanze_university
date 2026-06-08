@@ -1,3 +1,4 @@
 This Python script loads the ESOL solubility dataset, prints its shape, column names, basic statistics, and correlation of solubility with molecular weight, H‑bond donors, and ring count. It then uses a simple loop and conditional statement to count compounds with molecular weight below 200 and logS above -2. Finally, it generates and saves three plots: two scatter plots (molecular weight vs. solubility, H‑bond donors vs. solubility) and a histogram of solubility distribution. This analysis helps identify which molecular features most influence aqueous solubility and demonstrates how basic Python skills can be used to screen compounds for favourable solubility profiles before more expensive experimental testing.
+
 This project was completed two years ago; however, at that time, it was not hosted on GitHub.
 Recently, upon Hanze university admission committee request, I have uploaded the project to GitHub so that it can be reviewed as part of my application.
